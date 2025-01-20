@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="ko">
+	<head>
+		<meta charset="UTF-8" />
+		<title>question_detail.html</title>
+	</head>
+	<body>
+		<p>[[${question.formattedCreateDate}]]</p>
+		<hr />
+		<h1>[[${question.id}]] :: [[${question.subject}]]</h1>
+		<p>[[${question.content}]]</p>
+		<hr />
+		<ul>
+			<li th:each="answer : ${question.answerList}">
+				[[${answer.content}]]
+			</li>
+		</ul>
+		<hr />
+		<form th:action="@{|/answer/create/${question.id}|}" method="post">
+			<textarea name="content" id="" cols="30" rows="10"></textarea>
+			<input type="submit" value="답변 등록" />
+		</form>
+		<a th:href="@{|/question/list|}">목록으로 돌아가기</a>
+	</body>
+</html>

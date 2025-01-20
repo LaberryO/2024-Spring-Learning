@@ -4,6 +4,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 import com.laberry.junior.sbb.answer.Answer;
+import com.laberry.junior.util.DateUtils;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
@@ -12,6 +13,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.Transient;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -30,6 +32,13 @@ public class Question {
 	private String content;
 	
 	private LocalDateTime createDate;
+	
+	@Transient
+	private String formattedCreateDate;
+	
+	public void setFormattedCreateDateFromCreateDate() {
+		this.formattedCreateDate = DateUtils.formatDate(this.createDate);
+	}
 	
 	@OneToMany(mappedBy = "question", cascade = CascadeType.REMOVE)
 	private List<Answer> answerList;
