@@ -1,25 +1,53 @@
-<!DOCTYPE html>
-<html lang="ko">
-	<head>
-		<meta charset="UTF-8" />
-		<title>question_detail.html</title>
-	</head>
-	<body>
-		<p>[[${question.formattedCreateDate}]]</p>
-		<hr />
-		<h1>[[${question.id}]] :: [[${question.subject}]]</h1>
-		<p>[[${question.content}]]</p>
-		<hr />
-		<ul>
-			<li th:each="answer : ${question.answerList}">
-				[[${answer.content}]]
-			</li>
-		</ul>
-		<hr />
-		<form th:action="@{|/answer/create/${question.id}|}" method="post">
-			<textarea name="content" id="" cols="30" rows="10"></textarea>
-			<input type="submit" value="답변 등록" />
-		</form>
-		<a th:href="@{|/question/list|}">목록으로 돌아가기</a>
-	</body>
+<html layout:decorate="~{layout}">
+	<div layout:fragment="content" class="container">
+		<div class="row">
+			<div class="col">
+				<hr />
+				<h2 class="font-weight-bold">[[${question.id}]] :: [[${question.subject}]]</h2>
+				<hr />
+				<div class="card">
+					<div class="card-body">
+						<div class="row">
+							<div class="col">
+								<p>[[${question.content}]]</p>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col d-flex justify-content-end align-items-center">
+								<span class="badge badge-pill badge-dark">[[${question.formattedCreateDate}]]</span>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="row mt-3">
+			<div class="col">
+				<h4 class="font-weight-bold">[[${#lists.size(question.answerList)}]]개의 답변이 있습니다.</h4>
+				<div class="card my-2" th:each="answer : ${question.answerList}">
+					<div class="card-body">
+						<div class="row">
+							<div class="col d-flex justify-content-between align-items-center">
+								<span>[[${answer.content}]]</span>
+								<span class="badge badge-pill badge-dark">[[${answer.formattedCreateDate}]]</span>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col">
+				<form class="d-flex flex-column" th:action="@{|/answer/create/${question.id}|}" method="post">
+					<textarea class="form-control" name="content" id="" cols="30" rows="10"></textarea>
+					<div class="row">
+						<div class="col d-flex justify-content-between my-2">
+							<input class="btn btn-secondary" type="submit" value="답변 등록" />
+							<a class="btn btn-info" th:href="@{|/question/list|}">목록으로 돌아가기</a>
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
 </html>

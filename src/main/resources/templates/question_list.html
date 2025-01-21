@@ -1,38 +1,39 @@
-<!DOCTYPE html>
-<html lang="ko">
-	<head>
-		<meta charset="UTF-8" />
-		<title>question_list.html</title>
-		<style>
-			table th,
-			table td {
-				border: 1px solid black;
-				padding: 5px;
-			}
-		</style>
-	</head>
-	<body>
-		<h1>질문 게시판</h1>
-		<table>
-			<thead>
-				<tr>
-					<th>번호</th>
-					<th>제목</th>
-					<th>작성 일자</th>
-				</tr>
-			</thead>
-			<tbody>
-				<tr th:each="question : ${questionList}">
-					<td>[[${question.id}]]</td>
-					<td>
-						<a th:href="@{|/question/detail/${question.id}|}">
-							[[${question.subject}]]
-						</a>
-					</td>
-					<td th:text="${question.formattedCreateDate}"></td>
-				</tr>
-			</tbody>
-		</table>
-		<a th:href="@{/}">메인 페이지로 돌아가기</a>
-	</body>
+<html layout:decorate="~{layout}">
+	<div layout:fragment="content" class="container">
+		<div class="row mt-3">
+			<div class="col-12 d-flex align-items-center justify-content-between">
+				<h1 class="d-flex align-items-center">질문 게시판</h1>
+				<a th:href="@{/}" class="btn btn-info">메인 페이지로 돌아가기</a>
+			</div>
+		</div>
+		<div class="row mt-2">
+			<div class="col">
+				<table class="table table-striped">
+					<thead>
+						<tr>
+							<th scope="col">번호</th>
+							<th scope="col">제목</th>
+							<th scope="col">작성 일자</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr th:each="question : ${questionList}">
+							<th scope="row">[[${question.id}]]</th>
+							<td>
+								<a th:href="@{|/question/detail/${question.id}|}">
+									[[${question.subject}]]
+								</a>
+							</td>
+							<td th:text="${question.formattedCreateDate}"></td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col d-flex justify-content-end align-items-center">
+				<a class="btn btn-primary" th:href="@{/question/create}">질문 등록하기</a>
+			</div>
+		</div>
+	</div>
 </html>

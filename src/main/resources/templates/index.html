@@ -1,14 +1,9 @@
-<!DOCTYPE html>
-<html lang="ko">
-	<head>
-		<meta charset="UTF-8" />
-		<title>index.html</title>
-	</head>
-	<body>
+<html layout:decorate="~{layout}">
+	<div layout:fragment="content" class="container">
 		<h1>Index.html</h1>
 		<p>메인 페이지입니다.</p>
 		<ul>
 			<li><a th:href="@{|/question/list|}">질문 목록으로 이동</a></li>
 		</ul>
-	</body>
+	</div>
 </html>
