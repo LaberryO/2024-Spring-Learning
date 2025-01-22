@@ -1,0 +1,5 @@
+<div th:fragment="formErrorsFragment" class="alert alert-danger" th:if="${#fields.hasAnyErrors()}">
+	<div th:each="error : ${#fields.allErrors}">
+		[[${error}]]
+	</div>
+</div>

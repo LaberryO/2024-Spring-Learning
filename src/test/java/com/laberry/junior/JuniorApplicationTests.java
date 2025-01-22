@@ -14,8 +14,10 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.laberry.junior.sbb.answer.Answer;
 import com.laberry.junior.sbb.answer.AnswerRepository;
+import com.laberry.junior.sbb.answer.AnswerService;
 import com.laberry.junior.sbb.question.Question;
 import com.laberry.junior.sbb.question.QuestionRepository;
+import com.laberry.junior.sbb.question.QuestionService;
 
 @SpringBootTest
 class JuniorApplicationTests {
@@ -25,9 +27,20 @@ class JuniorApplicationTests {
 	@Autowired
 	private AnswerRepository answerRepository;
 	
+	@Autowired
+	private QuestionService questionService;
+	
+	@Autowired
+	private AnswerService answerService;
+	
 	@Test
-	@Transactional
+//	@Transactional
 	void testJpa() {
+		for(int i=1; i<=300; i++) {
+			String subject = String.format("고유번호 [%03d]번 데이터입니다.", i);
+			String content = "테스트 상세 내용입니다. 감사합니다.";
+			this.questionService.create(subject, content);
+		}
 //		Question q1 = new Question();
 //		q1.setSubject("스프링 부트의 이름은 어떠한 뜻입니까?");
 //		q1.setContent("스프링 부트의 사용법이 궁금합니다?");
