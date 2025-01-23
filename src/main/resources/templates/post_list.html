@@ -1,0 +1,145 @@
+<html layout:decorate="~{layout}">
+<div layout:fragment="content" class="container">
+	<!-- search -->
+	<div class="row my-4">
+		<div class="col">
+			<div class="card">
+				<div class="card-body d-flex align-items-center">
+					<textarea class="form-control" placeholder="글 내용, #태그, @작성자 검색" rows="1"></textarea>
+					<i class="bi bi-search ml-3"></i>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- postPost -->
+	<div class="row my-4">
+		<div class="col">
+			<div class="card">
+				<div class="card-body">
+					<div class="row">
+						<div class="col">
+							<textarea class="form-control" placeholder="새로운 소식을 남겨보세요." rows="4"></textarea>
+						</div>
+					</div>
+					<div class="row mx-1 mt-2">
+						<div class="col d-flex align-items-center justify-content-between">
+							<span class="bi bi-image" style="font-size: 1.5rem"></span>
+							<span class="bi bi-emoji-smile" style="font-size: 1.5rem"></span>
+							<span class="bi bi-play-circle" style="font-size: 1.5rem"></span>
+							<span class="bi bi-bar-chart-line" style="font-size: 1.5rem"></span>
+							<span class="bi bi-paperclip" style="font-size: 1.5rem"></span>
+							<span class="bi bi-calendar" style="font-size: 1.5rem"></span>
+							<span class="bi bi-card-checklist" style="font-size: 1.5rem"></span>
+							<span class="bi bi-clipboard-check" style="font-size: 1.5rem"></span>
+							<span class="bi bi-person-check" style="font-size: 1.5rem"></span>
+							<span class="bi bi-chat-square-dots" style="font-size: 1.5rem"></span>
+							<span class="bi bi-list-check" style="font-size: 1.5rem"></span>
+							<span class="bi bi-geo-alt" style="font-size: 1.5rem"></span>
+							<span class="bi bi-three-dots" style="font-size: 1.5rem"></span>
+							<a class="btn btn-dark" href="">등록</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- notification -->
+	<div class="row my-4">
+		<div class="col">
+			<div class="card">
+				<div class="card-body">
+					<div class="row mx-1 border-bottom">
+						<div class="col">
+							<h5 class="font-weight-bold">공지사항</h5>
+						</div>
+					</div>
+					<div class="row mx-1 my-1">
+						<div class="col">
+							테스트 글귀
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- postListArea -->
+	<div class="row my-4">
+		<div class="col">
+			<div class="card">
+				<div class="card-body">
+					<div class="row mx-1">
+						<div class="col">
+							<!-- newest -->
+							<div class="row border-bottom">
+								<div class="col">
+									<h5 class="dropdown-toggle font-weight-bold">최신순</h5>
+								</div>
+							</div>
+							<!-- postList -->
+							<div class="row my-2">
+								<div class="col">
+									<!-- post -->
+									<div class="row border-bottom">
+										<div class="col">
+											<div class="row">
+												<div class="col">
+													작성자
+												</div>
+											</div>
+											<div class="row">
+												<div class="col">
+													formattedCreateDate
+												</div>
+											</div>
+											<div class="row">
+												<div class="col">
+													content
+												</div>
+											</div>
+											<div class="row">
+												<div class="col">
+													<span class="dropdown-toggle">댓글 #lists.size(question.answerList)
+													</span>
+
+												</div>
+											</div>
+										</div>
+									</div>
+									<!-- comment -->
+									<div class="row my-2">
+										<div class="col">
+											<div class="row">
+												<div class="col">
+													작성자
+												</div>
+											</div>
+											<div class="row">
+												<div class="col">
+													content
+												</div>
+											</div>
+											<div class="row">
+												<div class="col">
+													formattedCreateDate
+												</div>
+											</div>
+										</div>
+									</div>
+									<!-- writeComment -->
+									<div class="row my-2">
+										<div class="col d-flex align-items-center">
+											<textarea class="flex-grow-1 form-control" style="width: 0;" rows="1"></textarea>
+											<a href="" class="btn btn-success ml-2">등록</a>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+</html>
