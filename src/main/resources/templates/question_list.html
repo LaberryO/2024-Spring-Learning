@@ -1,39 +1,73 @@
 <html layout:decorate="~{layout}">
-	<div layout:fragment="content" class="container">
-		<div class="row mt-3">
-			<div class="col-12 d-flex align-items-center justify-content-between">
-				<h1 class="d-flex align-items-center">질문 게시판</h1>
-				<a th:href="@{/}" class="btn btn-info">메인 페이지로 돌아가기</a>
-			</div>
-		</div>
-		<div class="row mt-2">
-			<div class="col">
-				<table class="table table-striped">
-					<thead>
-						<tr>
-							<th scope="col">번호</th>
-							<th scope="col">제목</th>
-							<th scope="col">작성 일자</th>
-						</tr>
-					</thead>
-					<tbody>
-						<tr th:each="question : ${paging}">
-							<th scope="row">[[${question.id}]]</th>
-							<td>
-								<a th:href="@{|/question/detail/${question.id}|}">
-									[[${question.subject}]]
-								</a>
-							</td>
-							<td th:text="${question.formattedCreateDate}"></td>
-						</tr>
-					</tbody>
-				</table>
-			</div>
-		</div>
-		<div class="row">
-			<div class="col d-flex justify-content-end align-items-center">
-				<a class="btn btn-primary" th:href="@{/question/create}">질문 등록하기</a>
-			</div>
+<div layout:fragment="content" class="container">
+	<div class="row mt-3">
+		<div class="col-12 d-flex align-items-center justify-content-between">
+			<h1 class="d-flex align-items-center">질문 게시판</h1>
+			<a th:href="@{/}" class="btn btn-info">메인 페이지로 돌아가기</a>
 		</div>
 	</div>
+	<div class="row">
+		<div class="col d-flex align-items-center justify-content-end">
+			<small>[[${paging.getTotalElements}]]개의 게시물이 있습니다.</small>
+		</div>
+	</div>
+	<div class="row mt-2">
+		<div class="col">
+			<table class="table table-striped">
+				<thead>
+					<tr>
+						<th scope="col">번호</th>
+						<th scope="col">제목</th>
+						<th scope="col">작성 일자</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr th:each="question, loop : ${paging}">
+						<th scope="row">[[${paging.getTotalElements - (paging.number * paging.size) - loop.index}]]</th>
+						<td>
+							<a th:href="@{|/question/detail/${question.id}|}">
+								[[${question.subject}]]
+							</a>
+							<span class="text-danger" th:if="${#lists.size(question.answerList) > 0}" th:text="'['+${#lists.size(question.answerList)}+']'">
+							</span>
+						</td>
+						<td th:text="${question.formattedCreateDate}"></td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col">
+			<!-- 페이징 처리 -->
+			<nav aria-label="Page navigation example">
+				<ul class="pagination justify-content-center">
+					<li class="page-item" th:classappend="${!paging.hasPrevious} ? 'disabled'">
+						<a class="page-link" th:href="@{|?page=${paging.number-1}|}">
+							이전
+						</a>
+					</li>
+					<li class="page-item" th:if="${page >= paging.number-5 and page <= paging.number+5}"
+						th:each="page : ${#numbers.sequence(0, paging.totalPages-1)}"
+						th:classappend="${page == paging.number} ? 'active'">
+						<a class="page-link" th:href="@{|?page=${page}|}">
+							[[${page+1}]]
+						</a>
+					</li>
+					<li class="page-item" th:classappend="${!paging.hasNext} ? 'disabled'">
+						<a class="page-link" th:href="@{|?page=${paging.number+1}|}">
+							다음
+						</a>
+					</li>
+				</ul>
+			</nav>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col d-flex justify-content-end align-items-center">
+			<a class="btn btn-primary" th:href="@{/question/create}">질문 등록하기</a>
+		</div>
+	</div>
+</div>
+
 </html>

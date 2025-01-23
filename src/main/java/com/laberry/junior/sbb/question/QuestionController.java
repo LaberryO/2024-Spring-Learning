@@ -1,6 +1,6 @@
 package com.laberry.junior.sbb.question;
 
-import java.util.List;
+//import java.util.List;
 
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
@@ -16,7 +16,6 @@ import com.laberry.junior.sbb.answer.AnswerForm;
 
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-//import org.springframework.web.bind.annotation.ResponseBody;
 
 @RequestMapping("/question")
 @RequiredArgsConstructor
