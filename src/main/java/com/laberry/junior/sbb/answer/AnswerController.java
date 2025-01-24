@@ -25,7 +25,6 @@ public class AnswerController {
 	public String createAnswer(@Valid AnswerForm answerForm, BindingResult bindingResult, Model model,
 			@PathVariable("id") Integer q_id) {
 		Question question = this.questionService.getQuestion(q_id);
-		question.setFormattedCreateDateFromCreateDate();
 		model.addAttribute("question", question);
 		if (bindingResult.hasErrors()) {
 			return "question_detail";

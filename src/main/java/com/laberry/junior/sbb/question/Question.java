@@ -13,6 +13,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.PostLoad;
 import jakarta.persistence.Transient;
 import lombok.Getter;
 import lombok.Setter;
@@ -35,7 +36,8 @@ public class Question {
 
 	@Transient
 	private String formattedCreateDate;
-
+	
+	@PostLoad
 	public void setFormattedCreateDateFromCreateDate() {
 		this.formattedCreateDate = DateUtils.formatDate(this.createDate);
 	}

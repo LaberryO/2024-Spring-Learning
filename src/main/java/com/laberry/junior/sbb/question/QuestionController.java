@@ -27,7 +27,6 @@ public class QuestionController {
 	@GetMapping("/list")
 	public String list(Model model, @RequestParam(value="page", defaultValue = "0") int page) {
 		Page<Question> paging = this.questionService.getList(page);
-		paging.forEach(question -> question.setFormattedCreateDateFromCreateDate());
 		model.addAttribute("paging", paging);
 		return "question_list";
 	}
@@ -35,7 +34,6 @@ public class QuestionController {
 	@GetMapping("/detail/{id}")
 	public String detail(AnswerForm answerForm, Model model, @PathVariable("id") Integer q_id) {
 		Question question = this.questionService.getQuestion(q_id);
-		question.setFormattedCreateDateFromCreateDate();
 		model.addAttribute("question", question);
 		return "question_detail";
 	}
