@@ -24,7 +24,7 @@ public class SecurityConfig {
 		// 인증되지 않은 요청 허가
 		return http.build();
 	}
-	
+
 	@Bean
 	PasswordEncoder passwordEncoder() {
 		return new BCryptPasswordEncoder();
