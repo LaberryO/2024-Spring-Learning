@@ -4,6 +4,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 import com.laberry.junior.sbb.answer.Answer;
+import com.laberry.junior.sbb.user.SiteUser;
 import com.laberry.junior.util.DateUtils;
 
 import jakarta.persistence.CascadeType;
@@ -12,6 +13,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.PostLoad;
 import jakarta.persistence.Transient;
@@ -31,7 +33,8 @@ public class Question {
 
 	@Column(columnDefinition = "TEXT")
 	private String content;
-
+	
+	@Column
 	private LocalDateTime createDate;
 
 	@Transient
@@ -44,4 +47,7 @@ public class Question {
 
 	@OneToMany(mappedBy = "question", cascade = CascadeType.REMOVE)
 	private List<Answer> answerList;
+	
+	@ManyToOne
+	private SiteUser author;
 }

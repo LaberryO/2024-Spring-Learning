@@ -3,6 +3,7 @@ package com.laberry.junior.sbb.answer;
 import java.time.LocalDateTime;
 
 import com.laberry.junior.sbb.question.Question;
+import com.laberry.junior.sbb.user.SiteUser;
 import com.laberry.junior.util.DateUtils;
 
 import jakarta.persistence.Column;
@@ -26,7 +27,8 @@ public class Answer {
 
 	@Column(columnDefinition = "TEXT")
 	private String content;
-
+	
+	@Column
 	private LocalDateTime createDate;
 
 	@Transient
@@ -39,4 +41,7 @@ public class Answer {
 
 	@ManyToOne
 	private Question question;
+	
+	@ManyToOne
+	private SiteUser author;
 }

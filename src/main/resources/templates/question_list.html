@@ -18,6 +18,7 @@
 					<tr>
 						<th scope="col">번호</th>
 						<th scope="col">제목</th>
+						<th scope="col">작성자</th>
 						<th scope="col">작성 일자</th>
 					</tr>
 				</thead>
@@ -30,6 +31,14 @@
 							</a>
 							<span class="text-danger" th:if="${#lists.size(question.answerList) > 0}"
 								th:text="'['+${#lists.size(question.answerList)}+']'">
+							</span>
+						</td>
+						<td>
+							<span th:if="${question.author != null}">
+								[[${question.author.username}]]
+							</span>
+							<span th:unless="${question.author != null}">
+								서버
 							</span>
 						</td>
 						<td th:text="${question.formattedCreateDate}"></td>
