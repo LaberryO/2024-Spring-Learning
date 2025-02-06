@@ -36,13 +36,20 @@ public class Question {
 	
 	@Column
 	private LocalDateTime createDate;
+	
+	@Column
+	private LocalDateTime modifyDate;
 
 	@Transient
 	private String formattedCreateDate;
 	
+	@Transient
+	private String formattedModifyDate;
+	
 	@PostLoad
-	public void setFormattedCreateDateFromCreateDate() {
+	public void setFormattedDate() {
 		this.formattedCreateDate = DateUtils.formatDate(this.createDate);
+		this.formattedModifyDate = DateUtils.formatDate(this.modifyDate);
 	}
 
 	@OneToMany(mappedBy = "question", cascade = CascadeType.REMOVE)

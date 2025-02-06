@@ -30,13 +30,20 @@ public class Answer {
 	
 	@Column
 	private LocalDateTime createDate;
+	
+	@Column
+	private LocalDateTime modifyDate;
 
 	@Transient
 	private String formattedCreateDate;
+	
+	@Transient
+	private String formattedModifyDate;
 
 	@PostLoad
-	public void setFormattedCreateDateFromCreateDate() {
+	public void setFormattedDate() {
 		this.formattedCreateDate = DateUtils.formatDate(this.createDate);
+		this.formattedModifyDate = DateUtils.formatDate(this.modifyDate);
 	}
 
 	@ManyToOne
