@@ -1,12 +1,12 @@
 <html layout:decorate="~{layout}">
 <div layout:fragment="content" class="container">
-	<div class="row">
+	<!-- Question -->
+	<div class="row mt-4">
 		<div class="col">
-			<hr />
-			<h2 class="font-weight-bold">[[${question.subject}]]</h2>
-			<hr />
+			<h2 class="pb-2 font-weight-bold border-dark border-bottom">[[${question.subject}]]</h2>
 			<div class="card">
 				<div class="card-body">
+					<!-- User -->
 					<div class="row mb-2">
 						<div th:if="${question.author != null}" class="col">
 							<span class="badge badge-light">
@@ -25,12 +25,30 @@
 							</span>
 						</div>
 					</div>
+					<!-- Content -->
 					<div class="row">
 						<div class="col">
 							<p>[[${question.content}]]</p>
 						</div>
 					</div>
+					<!-- Like -->
 					<div class="row">
+						<div class="col d-flex justify-content-center align-items-center">
+							<a href="javascript:void(0)" th:data-uri="@{|/question/vote/${question.id}|}"
+								class="voteElements btn btn-primary d-flex align-items-center"
+								style="font-size: 1.25rem;">
+								<span class="mr-2 bi bi-arrow-up-circle" style="font-size: 1.3rem;"></span>
+								<span class="font-weight-bold">
+									추천
+								</span>
+								<span class="ml-2 font-weight-bold badge badge-pill badge-light" style="top: 0;">
+									[[${#lists.size(question.voter)}]]
+								</span>
+							</a>
+						</div>
+					</div>
+					<!-- Date -->
+					<div class="row mt-2">
 						<div class="col d-flex justify-content-end align-items-center">
 							<span th:if="${question.formattedModifyDate != null}"
 								class="badge badge-pill badge-warning">
@@ -41,6 +59,7 @@
 							</span>
 						</div>
 					</div>
+					<!-- Feature -->
 					<div class="row mt-2">
 						<div class="col d-flex justify-content-end align-items-center">
 							<a th:href="@{|/question/modify/${question.id}|}" sec:authorize="isAuthenticated()"
@@ -51,7 +70,7 @@
 							<a href="javascript:void(0);" th:data-uri="@{|/question/delete/${question.id}|}"
 								sec:authorize="isAuthenticated()"
 								th:if="${question.author != null and #authentication.getPrincipal().getUsername() == question.author.username}"
-								class="btn btn-outline-danger ml-2" id="delete">
+								class="deleteElements btn btn-outline-danger ml-2">
 								삭제
 							</a>
 						</div>
@@ -60,11 +79,13 @@
 			</div>
 		</div>
 	</div>
+	<!-- Answer -->
 	<div class="row mt-3">
 		<div class="col">
 			<h4 class="font-weight-bold">[[${#lists.size(question.answerList)}]]개의 답변이 있습니다.</h4>
 			<div class="card my-2" th:each="answer : ${question.answerList}">
 				<div class="card-body">
+					<!-- User -->
 					<div class="row mb-2">
 						<div th:if="${answer.author != null}" class="col">
 							<span class="badge badge-light">
@@ -83,11 +104,29 @@
 							</span>
 						</div>
 					</div>
+					<!-- Content -->
 					<div class="row">
 						<div class="col d-flex align-items-center">
 							<span>[[${answer.content}]]</span>
 						</div>
 					</div>
+					<!-- Like -->
+					<div class="row">
+						<div class="col d-flex justify-content-center align-items-center">
+							<a href="javascript:void(0)" th:data-uri="@{|/answer/vote/${answer.id}|}"
+								class="voteElements btn btn-primary d-flex align-items-center"
+								style="font-size: 1.25rem;">
+								<span class="mr-2 bi bi-arrow-up-circle" style="font-size: 1.3rem;"></span>
+								<span class="font-weight-bold">
+									추천
+								</span>
+								<span class="ml-2 font-weight-bold badge badge-pill badge-light" style="top: 0;">
+									[[${#lists.size(answer.voter)}]]
+								</span>
+							</a>
+						</div>
+					</div>
+					<!-- Date -->
 					<div class="row">
 						<div class="col d-flex justify-content-end align-items-center">
 							<span th:if="${answer.formattedModifyDate != null}" class="badge badge-pill badge-warning">
@@ -98,6 +137,7 @@
 							</span>
 						</div>
 					</div>
+					<!-- Feature -->
 					<div class="row mt-2">
 						<div class="col d-flex justify-content-end align-items-center">
 							<a th:href="@{|/answer/modify/${answer.id}|}" sec:authorize="isAuthenticated()"
@@ -105,12 +145,19 @@
 								class="btn btn-outline-primary">
 								수정
 							</a>
+							<a href="javascript:void(0);" th:data-uri="@{|/answer/delete/${answer.id}|}"
+								sec:authorize="isAuthenticated()"
+								th:if="${answer.author != null and #authentication.getPrincipal().getUsername() == answer.author.username}"
+								class="deleteElements btn btn-outline-danger ml-2">
+								삭제
+							</a>
 						</div>
 					</div>
 				</div>
 			</div>
 		</div>
 	</div>
+	<!-- Answer Form -->
 	<div class="row">
 		<div class="col">
 			<form class="d-flex flex-column" th:action="@{|/answer/create/${question.id}|}" method="post"
@@ -131,11 +178,26 @@
 	</div>
 </div>
 <script layout:fragment="script">
-	const deleteElements = document.getElementById("delete");
-	deleteElements.addEventListener("click", (event) => {
+	const deleteElements = document.getElementsByClassName("deleteElements");
+	const voteElements = document.getElementsByClassName("voteElements");
+
+	function fDelete() {
 		if (confirm("정말로 삭제하시겠습니까?")) {
-			location.href = event.target.dataset.uri;
+			location.href = this.dataset.uri;
 		}
+	}
+
+	function fVote() {
+		if (confirm("정말로 추천하시겠습니까?")) {
+			location.href = this.dataset.uri;
+		}
+	}
+
+	Array.from(deleteElements).forEach((element) => {
+		element.addEventListener("click", fDelete);
+	});
+	Array.from(voteElements).forEach((element) => {
+		element.addEventListener("click", fVote);
 	});
 </script>
 
